@@ -1,0 +1,120 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <Windows.h>
+#include <conio.h>
+
+#define MAX 20
+
+int Num[MAX];
+
+int enter(int Cnt, int howmany) {
+	int i;
+	//배열 선언을 20으로 정해 두었기 때문에 20을 넘으면 경고 메세지와 함께 종료.
+		printf("Please enter the numbers?\n");
+		for (i = Cnt; i < Cnt+howmany; i++) {
+			scanf("%d", &Num[i]);
+		}
+		printf("Completed input\n");
+		_getch();
+		return i;
+	//여기서 물어볼것!! return 안주고 종료하게되면 main 함수에 반환값은 어떻게 되는지
+	//그냥 return을 주면 반환값이 어떻게 되는지 확인 필요!! 만약 ! 안되면 main에서 if문으로 처리후 실행.
+}
+void sort(int Cnt) {
+	// 선택정렬로 실행.
+	int i, j, temp, index;
+
+	for (i = 0; i < Cnt-1; i++) {
+		index = i;
+		for (j = i + 1; j < Cnt; j++) {
+			if (Num[j] < Num[index]) {
+				index = j;
+			}
+		}
+		temp = Num[index];
+		Num[index] = Num[i];
+		Num[i] = temp;
+	}
+	printf("Completed sorting\n");
+	_getch();
+	return;
+}
+void find(int Cnt) {
+	int first = 0;
+	int last = Cnt;
+	int mid;
+	int check;
+	//first 와 last
+	printf("What number do you want to find?\n");
+	scanf("%d", &check);
+	while (first <= last) {
+		mid = (first + last) / 2;
+		if (Num[mid] == check) {
+			printf("%d rank : %d", check+1, mid);
+			_getch();
+			return;
+		}
+		else {
+			if (check > Num[mid])
+				first = mid + 1;
+			if (check < Num[mid])
+				last = mid - 1;
+		}
+	}
+	printf("Can't find. check your Number\n");
+	_getch();
+}
+void show(int Cnt) {
+	int i;
+	for (i = 0; i < Cnt; i++) {
+		printf("%d  ", Num[i]);
+	}
+	_getch();
+	return;
+}
+int main() {
+	int menu = 1;
+	int menuCnt = 0;
+	int howmany;
+	// 0 이면 메뉴를 나가게 됨.
+	while (menu != 0) {
+		printf("Please Select the menu number\n");
+		printf("1. Enter the number.\n");
+		printf("2. Sort the numbers.\n");
+		printf("3. Find the numbers.\n");
+		printf("4. Show the numbers.\n");
+		printf("0. Exit.\n");
+		scanf("%d", &menu);
+		system("cls");
+		switch (menu) {
+			case 1:
+				printf("How many numbers do you enter?\n");
+				scanf("%d", &howmany);
+				if (menuCnt + howmany <= MAX) {
+					menuCnt = enter(menuCnt, howmany);
+				}
+				else {
+					printf("Input range exceeded. (X < 20)\n");
+					_getch();
+				}
+				system("cls");
+				break;
+			case 2:
+				sort(menuCnt);
+				system("cls");
+				break;
+			case 3:
+				find(menuCnt);
+				system("cls");
+				break;
+			case 4:
+				show(menuCnt);
+				system("cls");
+				break;
+			case 0:
+				return 0;
+			default:
+				printf("Error : Check the menu Number\n");
+		}
+	}
+}

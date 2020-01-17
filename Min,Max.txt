@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#define SIZE 15
+
+int binary_search(int grade[], int n, int key);
+
+int main(void) {
+   int grade[SIZE] = { 0 };
+   int i = 0;
+   int least = 0,j = 0,temp = 0, key = 0;
+   printf("정렬되기 전 배열 값 : ");
+   srand(time(NULL));
+
+   for (i = 0; i < SIZE; i++) {
+      grade[i] = rand() % 100 + 1;
+      printf(" %d ", grade[i]);
+   }
+   printf("\n\n");
+
+   for (i = 0; i < SIZE - 1; i++) {
+      least = i;
+      for (j = i + 1; j < SIZE; j++) {
+         if (grade[j] < grade[least])
+            least = j;
+      }
+      temp = grade[i];
+      grade[i] = grade[least];
+      grade[least] = temp;
+   }
+
+   printf("정렬 후 배열 값 : ");
+   for (i = 0; i < SIZE; i++) {
+      printf(" %d ", grade[i]);
+   }
+   printf("\n\n");
+
+   printf("찾을 값은 : ");
+   scanf("%d", &key);
+
+   printf("탑색 요청한 %d 값은 %d 번 째 있습니다.\n", key, binary_search(grade, SIZE, key));
+   return 0;
+}
+int binary_search(int grade[], int n, int key) {
+   int low = 0, high = n - 1, mid = 0, count = 0;
+   while (low <= high) {
+      count++;
+      mid = (low + high) / 2;
+
+      printf("%d번째 시도 결과: [Start : %d, End : %d, Mid = %d]\n",count, low, high, mid);
+      if (key == grade[mid])
+         return mid;
+      else if (key > grade[mid])
+         low = mid + 1;
+      else
+         high = mid - 1;
+   }
+   return -1;
+}

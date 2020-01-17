@@ -1,0 +1,104 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <Windows.h>
+
+#define X 10
+
+char name[X][7];
+int votecnt[X];
+//몇번 후보자를 선택하시겠씁니까 투표 만들기(종료는 - 1) 누적
+
+int input(int cnt, int candiate) {
+	int i;
+	for (i = candiate; i < candiate + cnt; i++) {
+		printf("Enter the your name...\n");
+		scanf("%s", name[i]);
+	}
+	system("cls");
+	return i;
+}
+void vote(int candiate) {
+	int i, vote;
+	for (i = 0; i < candiate; i++) {
+		printf("%d.%s  ", i + 1, name[i]);
+	}
+	scanf("%d", &vote);
+	if (vote > 0 && vote <= candiate) {
+		votecnt[vote - 1]++;
+		return 0;
+	}
+	else {
+		printf("!ERROR! Not exist Candidate Number\n");
+		_getch();
+	}
+	system("cls");
+}
+sort(int cnt) {
+	int i,j,temp;
+	char nametemp[7];
+	for (i = 0; i < cnt; i++) {
+		for (j = i+1; j < cnt; j++) {
+			if (votecnt[i] < votecnt[j]) {
+				temp = votecnt[j];
+				votecnt[j] = votecnt[i];
+				votecnt[i] = temp;
+				strcpy(nametemp,name[j]);
+				strcpy(name[j],name[i]);
+				strcpy(name[i],nametemp);
+			}
+		}
+	}
+	printf("Succeed sort");
+	return 0;
+}
+result(int cnt) {
+	int i;
+	for (i = 0; i < cnt; i++) {
+		printf("%d.%s 후보자 : %d표\n", i + 1, name[i], votecnt[i]);
+	}
+	_getch();
+	return 0;
+}
+int main() {
+	//1. 후보자 등록  2.투표   3. 득표수 정렬  4. 투표 결과 -1.종료
+	int howmany;
+	int candiateNum = 0;
+	int select = 1;
+
+	while (select != -1) {
+		system("cls");
+		printf("please select the menu number.\n");
+		printf("1.Register Candidate\n2.Vote\n3.Sort\n4.Result\n-1.Exit\n");
+		scanf("%d", &select);
+		switch (select)
+		{
+		case 1:
+			printf("How many candidate register?\n");
+			scanf("%d", &howmany);
+			if (howmany + candiateNum <= X) {
+				candiateNum = input(howmany, candiateNum);
+			}
+			else {
+				printf("The register range has been exceeded.\n");
+			}
+			break;
+		case 2:
+			vote(candiateNum);
+			break;
+		case 3:
+			sort(candiateNum);
+			break;
+		case 4:
+			result(candiateNum);
+			break;
+		case -1:
+			printf("종료합니다.");
+			_getch();
+			break;
+		default:
+			printf("! ERROR ! Please check your select number");
+			_getch();
+		}
+	}
+}

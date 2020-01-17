@@ -1,0 +1,45 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+	int num[3] = { 0 };
+	int com[3] = { 0 };
+	int strike = 0, ball = 0, cnt = 0;
+	int i = 0;
+
+	srand(time(NULL)); // srand = 초기화 // time 시간마다 초기화 //한번만 초기화해주면된다.
+	// srand = stdlib 헤더 time = time헤더 필요
+
+	do {
+		for (i = 0; i < 3; i++) {
+			com[i] = rand() % 9 +1;
+		}
+	} while (com[0] == com[1] || com[1] == com[2] || com[2] == com[0]);
+
+	while (strike != 3) {
+		strike = 0, ball = 0;
+		printf("숫자 3개를 입력하시오\n");
+		scanf("%d %d %d", &num[0], &num[1], &num[2]);
+
+		for(i = 0; i < 3; i++) {
+			if (com[i] == num[i]) {
+				strike++;
+			}
+		}
+		if (com[0] == num[1] || com[0] == num[2])
+			ball++;
+		if (com[1] == num[2] || com[1] == num[0])
+			ball++;
+		if (com[2] == num[0] || com[2] == num[1])
+			ball++;
+
+		cnt++;
+		printf("입력하신 숫자는 :%d %d %d\n", com[0], com[1], com[2]);
+		printf("%d번째 게임입니다.\n스트라이크 : %d\t 볼 : %d\n", cnt, strike, ball);
+	}
+	printf("Game Over");
+	_getch();
+}

@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+ 
+void set_proverb(char **q, int n);
+ 
+int main() {
+    
+    char *proverb;
+    int n;
+ 
+    printf("몇 번째 속담을 선택하시겠습니까?  ");
+    scanf("%d", &n);
+ 
+    set_proverb(&proverb, n);
+    printf("selected proverb = %s \n", proverb);
+ 
+    return 0;
+}
+ 
+void set_proverb(char **q, int n) {
+    char *str[10] = {"Pride will have a fall",
+        "Empty vessels make the mostsound",
+        "First think and speak",
+        "Love begets love",
+        "Negligence is a crime",
+        "Poverty parts friends",
+        "A friend in need is a friend indeed",
+        "Promise little, do much",
+        "No news is good news",
+        "If you laugh, blessings will come your way"
+    };
+    *q = str[n-1];
+}
+
+
