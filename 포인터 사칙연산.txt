@@ -1,0 +1,65 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+
+void get_sum(int x, int y, int *p_result);
+void get_minus(int x, int y, int *p_result);
+void get_multi(int x, int y, int *p_result);
+void get_divi(int x, int y, int *p_result);
+
+int main() {
+	int x, y;
+	int	check = 0;
+	int result;
+	char point;
+
+	while (check != 5) {
+		printf("사칙연산 프로그램입니다. 원하시는 메뉴를 눌러주세요.\n 1.덧셈  2.뺄셈  3.곱하기  4.나누기  5. 종료\n");
+		scanf("%d", &check);
+		if (check < 5) {
+			printf("2개의 정수를 입력하시오: ");
+			scanf("%d %d", &x, &y);
+		}
+		switch (check) {
+			case 1:
+				get_sum(x, y, &result);
+				point = '+';
+				break;
+			case 2:
+				get_minus(x, y, &result);
+				point = '-';
+				break;
+			case 3:
+				get_multi(x, y, &result);
+				point = '*';
+				break;
+			case 4:
+				get_divi(x, y, &result);
+				point = '/';
+				break;
+			case 5:
+				printf("종료하겠습니다.");
+				_getch();
+				return 0;
+			default:
+				printf("메뉴의 번호를 다시한번더 확인해주시기 바랍니다.\n");
+		}
+		if (check < 5) {
+			printf("%d %c %d = %d \n", x, point, y, result);
+			_getch();
+		}
+	}
+	return 0;
+}
+void get_sum(int x, int y, int *p_result) {
+	*p_result = x + y;
+}
+void get_minus(int x, int y, int *p_result) {
+	*p_result = x - y;
+}
+void get_multi(int x, int y, int *p_result) {
+	*p_result = x * y;
+}
+void get_divi(int x, int y, int *p_result) {
+	*p_result = x / y;
+}

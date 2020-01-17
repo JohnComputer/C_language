@@ -1,0 +1,25 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+
+void get_sum_diff(int x, int y, int *p_sum, int *p_diff);
+
+int main() {
+	int x, y;
+	int sum, diff;
+
+	printf("2개의 정수를 입력하시오: ");
+	scanf("%d %d", &x, &y);
+
+	get_sum_diff(x, y, &sum, &diff);
+
+	printf("x + y = %d \n", sum);
+	printf("x - y = %d \n", diff);
+	_getch();
+	return 0;
+}
+
+void get_sum_diff(int x, int y, int *p_sum, int *p_diff) {
+	*p_sum = x + y;
+	*p_diff = x - y;
+}

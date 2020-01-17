@@ -1,0 +1,28 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+ 
+#define SIZE 10
+ 
+void array_fill(int *A, int size);
+ 
+int main() {
+    int arr[SIZE];
+    int i;
+    srand((unsigned)time(NULL));
+ 
+    array_fill(arr, SIZE);
+    for(i=0; i<SIZE; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+ 
+    return 0;
+}
+ 
+void array_fill(int *A, int size) {
+    int i;
+    for(i=0; i<size; i++)
+        A[i] = 1 + rand() % 100;
+}

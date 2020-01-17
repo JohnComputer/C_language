@@ -1,0 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#define SIZE 5
+ 
+void array_print(int *A, int size);
+ 
+int main() {
+    int arr[SIZE] = {1, 2, 3, 4, 5};
+ 
+    array_print(arr, SIZE);
+ 
+    return 0;
+}
+ 
+void array_print(int *A, int size) {
+    int i;
+    printf("A[] = { \n");
+    printf("A[] = ");
+ 
+    for(i=0; i<size; i++) {
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+    printf("A[] = } \n");
+}
